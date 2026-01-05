@@ -1,0 +1,23 @@
+services:
+  cpp-app:
+    build: 
+      context: .
+      dockerfile:  dockerfile.cpp
+    volumes:
+      - shared-pipe:/tmp
+    tty: true
+    stdin_open: true
+
+  node-app:
+    build:
+      context: .
+      dockerfile: dockerfile.node
+    volumes:
+      - shared-pipe:/tmp
+    depends_on:
+      - cpp-app
+    tty: true
+    stdin_open: true
+
+volumes:
+  shared-pipe: 

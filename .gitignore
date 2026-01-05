@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+dist/
+
+# Compiled C++ binaries
+*.o
+*.exe
+cpp_receiver
+
+# Docker
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment files
+.env
+
+# IDE settings
+.vscode/
+.idea/
+
+# The Named Pipe
+/tmp/pipe_1
+pipe_1

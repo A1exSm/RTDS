@@ -1,0 +1,19 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY node-app/ ./node-app/
+
+WORKDIR /app/node-app
+RUN npm install
+RUN npm run build
+
+# ✅ Run compiled JS directly with 'exec node'
+CMD ["sh", "-c", "echo 'Waiting for pipe...' && while [ ! -p /tmp/pipe_1 ]; do sleep 0.5; done && echo 'Pipe found!' && exec node dist/index.js"]
